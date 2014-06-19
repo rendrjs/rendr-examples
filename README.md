@@ -1,4 +1,4 @@
-rendr-examples
+Rendr Examples
 ==============
 
-Example Rendr apps.
+This is a collection of example [Rendr](https://github.com/rendrjs/rendr) apps.
