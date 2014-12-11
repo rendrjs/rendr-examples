@@ -1,10 +1,6 @@
-var path = require('path')
-  , async = require('async')
-  , stylesheetsDir = 'assets/stylesheets'
-  , rendrDir = 'node_modules/rendr'
-  , rendrHandlebarsDir = 'node_modules/rendr-handlebars'
-  , rendrModulesDir = rendrDir + '/node_modules'
-;
+var path = require('path'),
+  async = require('async'),
+  stylesheetsDir = 'assets/stylesheets';
 
 module.exports = function(grunt) {
 
@@ -112,6 +108,9 @@ module.exports = function(grunt) {
               ],
               exports: 'Backbone'
             },
+            handlebars: {
+              exports: 'Handlebars'
+            }
           },
           include: [
             'requirejs',
@@ -132,29 +131,6 @@ module.exports = function(grunt) {
           ]
         }
       },
-      build_rendr_handlebars: {
-        options: {
-          optimize: 'none',
-          out: 'public/js/rendr-handlebars.js',
-          baseUrl: 'public/js',
-          cjsTranslate: true,
-          create: true,
-          name: 'rendr-handlebars',
-          include: [
-            'rendr-handlebars'
-          ],
-          exclude: [
-            'handlebars',
-            'underscore'
-          ],
-          node_modules: [
-            {name: 'rendr-handlebars', location: 'rendr-handlebars', main: 'index.js'},
-            {name: 'handlebars', location: 'rendr-handlebars/node_modules/handlebars/dist', main: 'handlebars.runtime.js'},
-            {name: 'underscore', location: 'underscore', main: 'underscore.js'}
-          ]
-        }
-      },
-
       build_rendr:
       {
         options:
@@ -195,6 +171,31 @@ module.exports = function(grunt) {
         }
       },
 
+      build_rendr_handlebars: {
+        options: {
+          optimize: 'none',
+          out: 'public/js/rendr-handlebars.js',
+          baseUrl: 'public/js',
+          cjsTranslate: true,
+          create: true,
+          name: 'rendr-handlebars',
+          include: [
+            'rendr-handlebars'
+          ],
+          paths:
+          {
+            'jquery': 'empty:',
+            'underscore': 'empty:',
+            'backbone': 'empty:',
+            'handlebars': 'empty:',
+            'async': 'empty:'
+          },
+          node_modules: [
+            {name: 'rendr-handlebars', location: 'rendr-handlebars', main: 'index.js'},
+          ]
+        }
+      },
+
       build_app:
       {
         options:
@@ -218,10 +219,10 @@ module.exports = function(grunt) {
 
 
   grunt.registerTask('build_world',
-  [ 'rendr_requirejs:build_common'
-  , 'rendr_requirejs:build_rendr_handlebars'
-  , 'rendr_requirejs:build_rendr'
-  , 'rendr_requirejs:build_app'
+  [ 'rendr_requirejs:build_common',
+    'rendr_requirejs:build_rendr',
+    'rendr_requirejs:build_rendr_handlebars',
+    'rendr_requirejs:build_app'
   ]);
 
   grunt.registerTask('runNode', function () {
@@ -255,6 +256,6 @@ module.exports = function(grunt) {
       }, function(err, res, code) {
         callback(err || code, res);
       });
-    }
+    };
   }
 };
