@@ -1,14 +1,9 @@
 var express = require('express')
   , rendr = require('rendr')
+  , compress = require('compression')
+  , bodyParser = require('body-parser')
+  , serveStatic = require('serve-static')
   , app = express();
-
-/**
- * Initialize Express middleware stack.
- */
-app.use(express.compress());
-app.use(express.static(__dirname + '/public'));
-app.use(express.logger());
-app.use(express.bodyParser());
 
 /**
  * In this simple example, the DataAdapter config, which specifies host, port, etc. of the API
@@ -21,6 +16,7 @@ var dataAdapterConfig = {
     host: 'api.github.com',
     protocol: 'https'
   },
+
   'travis-ci': {
     host: 'api.travis-ci.org',
     protocol: 'https'
@@ -42,7 +38,17 @@ var server = rendr.createServer({
   *
   *     app.use('/my_cool_app', server);
   */
-app.use(server);
+
+/**
+ * Initialize Express middleware stack.
+ */
+server.configure(function (expressApp) {
+  expressApp.use(compress());
+  expressApp.use(serveStatic(__dirname + '/public'));
+  expressApp.use(bodyParser.json());
+});
+
+app.use('/', server.expressApp);
 
 /**
  * Start the Express server.
