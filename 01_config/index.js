@@ -1,15 +1,10 @@
 var express = require('express')
   , rendr = require('rendr')
   , config = require('config')
+  , compress = require('compression')
+  , bodyParser = require('body-parser')
+  , serveStatic = require('serve-static')
   , app = express();
-
-/**
- * Initialize Express middleware stack.
- */
-app.use(express.compress());
-app.use(express.static(__dirname + '/public'));
-app.use(express.logger());
-app.use(express.bodyParser());
 
 /**
  * Initialize our Rendr server.
@@ -20,14 +15,15 @@ var server = rendr.createServer({
 });
 
 /**
-  * To mount Rendr, which owns its own Express instance for better encapsulation,
-  * simply add `server` as a middleware onto your Express app.
-  * This will add all of the routes defined in your `app/routes.js`.
-  * If you want to mount your Rendr app onto a path, you can do something like:
-  *
-  *     app.use('/my_cool_app', server);
-  */
-app.use(server);
+ * Initialize Express middleware stack.
+ */
+server.configure(function (expressApp) {
+  expressApp.use(compress());
+  expressApp.use(serveStatic(__dirname + '/public'));
+  expressApp.use(bodyParser.json());
+});
+
+app.use('/', server.expressApp);
 
 /**
  * Start the Express server.
