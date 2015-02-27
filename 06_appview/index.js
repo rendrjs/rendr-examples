@@ -3,6 +3,7 @@ var express = require('express')
   , compress = require('compression')
   , bodyParser = require('body-parser')
   , serveStatic = require('serve-static')
+  , logger = require('morgan')
   , app = express();
 
 /**
@@ -10,6 +11,7 @@ var express = require('express')
  */
 app.use(compress());
 app.use(serveStatic(__dirname + '/public'));
+app.use(logger('combined'));
 app.use(bodyParser.json());
 
 /**
