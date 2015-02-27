@@ -2,15 +2,17 @@ var express = require('express')
   , config = require('config')
   , app = express()
   , mainApp = require('./apps/main')
-  , landingPageApp = require('./apps/landing_page');
+  , landingPageApp = require('./apps/landing_page')
+  , compress = require('compression')
+  , bodyParser = require('body-parser')
+  , serveStatic = require('serve-static');
 
 /**
  * Initialize Express middleware stack.
  */
-app.use(express.compress());
-app.use(express.static(__dirname + '/public'));
-app.use(express.logger());
-app.use(express.bodyParser());
+app.use(compress());
+app.use(serveStatic(__dirname + '/public'));
+app.use(bodyParser.json());
 
 /**
  * Mount a simple, self-contained landing page app as an Express sub-app.
@@ -20,7 +22,9 @@ app.use('/landing_page', landingPageApp);
 /**
  * Mount the Rendr app at the root level.
  */
-app.use(mainApp);
+mainApp.configure(function (expressApp) {
+  app.use('/', expressApp);
+})
 
 /**
  * Start the Express server.

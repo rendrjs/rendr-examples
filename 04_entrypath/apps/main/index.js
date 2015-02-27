@@ -1,7 +1,6 @@
 var rendr = require('rendr')
   , config = require('config');
 
-
 /**
  * Initialize our Rendr server and export it, so it can be used as a middleware
  * by our top-level `index.js`.
