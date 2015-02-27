@@ -1,14 +1,18 @@
 var express = require('express')
   , rendr = require('rendr')
+  , compress = require('compression')
+  , bodyParser = require('body-parser')
+  , serveStatic = require('serve-static')
+  , logger = require('morgan')
   , app = express();
 
 /**
  * Initialize Express middleware stack.
  */
-app.use(express.compress());
-app.use(express.static(__dirname + '/public'));
-app.use(express.logger());
-app.use(express.bodyParser());
+app.use(compress());
+app.use(serveStatic(__dirname + '/public'));
+app.use(logger('combined'));
+app.use(bodyParser.json());
 
 /**
  * In this simple example, the DataAdapter config, which specifies host, port, etc. of the API
@@ -42,7 +46,10 @@ var server = rendr.createServer({
   *
   *     app.use('/my_cool_app', server);
   */
-app.use(server);
+
+server.configure(function (expressApp) {
+  app.use('/', expressApp);
+});
 
 /**
  * Start the Express server.
