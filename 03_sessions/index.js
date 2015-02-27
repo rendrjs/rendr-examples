@@ -1,33 +1,33 @@
 var express = require('express')
   , rendr = require('rendr')
   , config = require('config')
+  , compress = require('compression')
+  , bodyParser = require('body-parser')
+  , serveStatic = require('serve-static')
+  , cookieParser = require('cookie-parser')
+  , session = require('express-session')
   , mw = require('./server/middleware')
   , app = express();
 
 /**
  * Initialize Express middleware stack.
  */
-app.use(express.compress());
-app.use(express.static(__dirname + '/public'));
-app.use(express.logger());
-app.use(express.bodyParser());
+app.use(compress());
+app.use(serveStatic(__dirname + '/public'));
+app.use(bodyParser.json());
 
 /**
  * The `cookieParser` middleware is required for sessions.
  */
-app.use(express.cookieParser());
+app.use(cookieParser());
 
 /**
  * Add session support. This will populate `req.session`.
  */
-app.use(express.session({
+app.use(session({
   secret: config.session.secret,
-
-  /**
-   * In production apps, you should probably use something like Redis or Memcached
-   * to store sessions. Look at the `connect-redis` or `connect-memcached` modules.
-   */
-  store: null
+  resave: false,
+  saveUninitialized: true
 }));
 
 /**
@@ -45,7 +45,7 @@ var server = rendr.createServer({
   *
   *     app.use('/my_cool_app', server);
   */
-app.use(server);
+app.use('/', server.expressApp);
 
 server.configure(function(rendrExpressApp) {
 
