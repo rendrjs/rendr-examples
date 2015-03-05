@@ -1,14 +1,9 @@
-var express = require('express')
-  , rendr = require('rendr')
-  , app = express();
-
-/**
- * Initialize Express middleware stack.
- */
-app.use(express.compress());
-app.use(express.static(__dirname + '/public'));
-app.use(express.logger());
-app.use(express.bodyParser());
+var express     = require('express')
+  , rendr       = require('rendr')
+  , app         = express()
+  , bodyParser  = require('body-parser')
+  , compression = require('compression')
+  , serveStatic = require('serve-static');
 
 /**
  * In this simple example, the DataAdapter config, which specifies host, port, etc. of the API
@@ -34,6 +29,12 @@ var server = rendr.createServer({
   dataAdapterConfig: dataAdapterConfig
 });
 
+server.configure(function (expressApp) {
+  expressApp.use(compression());
+  expressApp.use(serveStatic(__dirname + '/public'));
+  expressApp.use(bodyParser.json());
+});
+
 /**
   * To mount Rendr, which owns its own Express instance for better encapsulation,
   * simply add `server` as a middleware onto your Express app.
@@ -42,7 +43,7 @@ var server = rendr.createServer({
   *
   *     app.use('/my_cool_app', server);
   */
-app.use(server);
+app.use(server.expressApp);
 
 /**
  * Start the Express server.
