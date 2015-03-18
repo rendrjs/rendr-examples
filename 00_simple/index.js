@@ -31,15 +31,6 @@ var server = rendr.createServer({
 });
 
 /**
-  * To mount Rendr, which owns its own Express instance for better encapsulation,
-  * simply add `server` as a middleware onto your Express app.
-  * This will add all of the routes defined in your `app/routes.js`.
-  * If you want to mount your Rendr app onto a path, you can do something like:
-  *
-  *     app.use('/my_cool_app', server);
-  */
-
-/**
  * Initialize Express middleware stack.
  */
 server.configure(function (expressApp) {
@@ -47,6 +38,15 @@ server.configure(function (expressApp) {
   expressApp.use(serveStatic(__dirname + '/public'));
   expressApp.use(bodyParser.json());
 });
+
+/**
+  * To mount Rendr, which owns its own Express instance for better encapsulation,
+  * simply add `server` as a middleware onto your Express app.
+  * This will add all of the routes defined in your `app/routes.js`.
+  * If you want to mount your Rendr app onto a path, you can do something like:
+  *
+  *     app.use('/my_cool_app', server.expressApp);
+  */
 
 app.use('/', server.expressApp);
 
