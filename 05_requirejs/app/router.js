@@ -16,7 +16,7 @@ define(function(require) {
   Router.prototype = Object.create(BaseClientRouter.prototype);
   Router.prototype.constructor = BaseClientRouter;
 
-  Router.prototype.postInitialize = function() {
+  Router.prototype.initialize = function() {
     this.on('action:start', this.trackImpression, this);
   };
 

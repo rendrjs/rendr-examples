@@ -10,24 +10,28 @@
     "postupdate": "test -f ../../package.json && npm install ../../ || echo"
   },
   "dependencies": {
-    "express": "~3",
-    "underscore": "~1.5.2",
-    "async": "~0.2.9",
-    "rendr-handlebars": "0.2.0",
-    "rendr": "0.5.0",
+    "body-parser": "^1.12.0",
+    "compression": "^1.4.1",
+    "express": "^4.12.0",
+    "jquery": "^2.1.3",
+    "rendr": "1.0.x",
+    "rendr-handlebars": "^1.0.0",
+    "serve-static": "^1.9.1",
+    "underscore": "^1.8.2",
     "amdefine": "~0.1.0"
   },
   "devDependencies": {
-    "requirejs": "~2.1.10",
-    "grunt": "~0.4.1",
-    "grunt-contrib-watch": "~0.3.1",
-    "grunt-contrib-stylus": "~0.5.0",
-    "grunt-contrib-handlebars": "~0.5.11",
+    "requirejs": "~2.1.15",
+    "grunt": "~0.4.5",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-stylus": "~0.20.0",
+    "grunt-contrib-handlebars": "~0.9.3",
     "grunt-contrib-requirejs": "~0.4.1",
-    "grunt-rendr-requirejs": "~0.1.1",
+    "grunt-rendr-requirejs": "~1.0.0",
     "nodemon": "~0.7.6",
     "mocha": "~1.9.0",
-    "should": "~1.2.2"
+    "should": "~1.2.2",
+    "async": "~0.9.0"
   },
   "engines": {
     "node": ">=0.8"
