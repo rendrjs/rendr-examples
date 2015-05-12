@@ -72,6 +72,7 @@ module.exports = function(grunt) {
         options: {
           debug: true,
           alias: [
+            'node_modules/handlebars/runtime.js:handlebars',
             'node_modules/rendr-handlebars/index.js:rendr-handlebars',
           ],
           aliasMappings: [
