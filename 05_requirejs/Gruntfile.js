@@ -126,7 +126,7 @@ module.exports = function(grunt) {
             {name: 'requirejs', location: 'requirejs', main: 'require.js'},
             {name: 'underscore', location: 'underscore', main: 'underscore.js'},
             {name: 'backbone', location: 'backbone', main: 'backbone.js'},
-            {name: 'handlebars', location: 'rendr-handlebars/node_modules/handlebars/dist', main: 'handlebars.runtime.js'},
+            {name: 'handlebars', location: 'handlebars', main: 'runtime.js'},
             {name: 'async', location: 'async/lib', main: 'async.js'}
           ]
         }
