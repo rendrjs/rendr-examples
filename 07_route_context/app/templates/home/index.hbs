@@ -1,0 +1,12 @@
+<h1>Welcome to a Route Context Example!</h1>
+<p>This is a little app that demonstrates how to pull context for a route from the server.</p>
+
+<p>Time route loaded: {{time}}</p>
+<p>Minute route loaded: {{minute}}</p>
+
+<a href="/only-even-minute" class="btn btn-primary">Go To Even Minute Page</a>
+<a href="/only-odd-minute" class="btn btn-primary">Go To Odd Minute Page</a>
+
+{{#if message}}
+  <div class="alert alert-danger">{{message}}</div>
+{{/if}}
