@@ -4,11 +4,9 @@ if (typeof define !== 'function') {
 
 define(function(require) {
 
-  var User = require('../models/user')
-    , Base = require('./base');
+  var Base = require('./base');
 
   var exports = Base.extend({
-    model: User,
     url: '/users'
   });
   exports.id = 'Users';
