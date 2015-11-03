@@ -1,0 +1,18 @@
+body {
+    &.loading {
+        .loading-indicator {
+            display: block;
+        }
+    }
+}
+.loading-indicator {
+    display: none;
+    float: right;
+    color: white;
+    line-height: 40px;
+}
+main#content {
+    > div.navigating {
+        opacity: 0.5;
+    }
+}
