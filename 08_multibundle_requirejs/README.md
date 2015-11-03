@@ -8,9 +8,9 @@ This allows the javascript code and the handlebars templates to be packaged toge
 
 To run the example app:
 
-1) Run `npm install`
-2) Run `grunt server`
-3) The app should run on localhost:3030.  You can inspect the Network to see how the bundles are loaded on demand when navigating.
+1. Run `npm install`
+2. Run `grunt server`
+3. The app should run on localhost:3030.  You can inspect the Network to see how the bundles are loaded on demand when navigating.
 
 ## Global Define
 
@@ -75,19 +75,19 @@ There are better structures (see https://github.com/rendrjs/rendr/issues/493), b
 One change for accessing models and collections with this approach is to specify the path to the model and collection. In a normal example, you might have: 
 
 ```js
-      var spec = {
-        model: {model: 'User', params: params},
-        repos: {collection: 'Repos', params: {user: params.login}}
-      };
+var spec = {
+  model: {model: 'User', params: params},
+  repos: {collection: 'Repos', params: {user: params.login}}
+};
 ```
 
 But with the extra path, it should specified snake-cased and relative:
 
 ```js
-      var spec = {
-        model: {model: 'users_bundle/user', params: params},
-        repos: {collection: 'repos_bundle/repos', params: {user: params.login}}
-      };
+var spec = {
+  model: {model: 'users_bundle/user', params: params},
+  repos: {collection: 'repos_bundle/repos', params: {user: params.login}}
+};
 ```
 
 This model and collection naming should both correspond to the folder structure AND to the `exports.id` of the model or collection, eg `exports.id = 'users_bundle/user';`
