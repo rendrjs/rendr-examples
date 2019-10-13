@@ -55,6 +55,12 @@ Now, pull up the app in your web browser. It defaults to port `3030`.
 You can choose a different port by passing the `PORT` environment variable:
 
     $ PORT=80 grunt server
+    
+In order to use node_inspector with grunt run the following command with the script you want to debug
+and put a debugger; line in your task. node-inspector will then open a browser with debugging toolsand put a debugger; line in your task. node-inspector will then open a browser with debugging tools
+    $ node-debug $(which grunt) task
+    
+and put a debugger; line in your task. node-inspector will then open a browser with debugging tools   
 
 ### GitHub API rate limit
 
